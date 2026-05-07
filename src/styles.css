@@ -1,0 +1,106 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-stone-warm: var(--stone-warm);
+  --color-moss: var(--moss);
+  --color-bloom: var(--bloom);
+  --font-display: "Fraunces", "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.5rem;
+  /* Earthy, refined landscape palette */
+  --background: oklch(0.985 0.008 90);          /* warm cream */
+  --foreground: oklch(0.22 0.025 150);          /* deep forest ink */
+  --card: oklch(0.98 0.012 85);
+  --card-foreground: oklch(0.22 0.025 150);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.025 150);
+  --primary: oklch(0.34 0.07 150);              /* forest green */
+  --primary-foreground: oklch(0.985 0.008 90);
+  --secondary: oklch(0.93 0.02 85);             /* sand */
+  --secondary-foreground: oklch(0.25 0.04 150);
+  --muted: oklch(0.94 0.012 90);
+  --muted-foreground: oklch(0.45 0.025 140);
+  --accent: oklch(0.62 0.14 55);                /* terracotta accent */
+  --accent-foreground: oklch(0.985 0.008 90);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.985 0.008 90);
+  --border: oklch(0.88 0.015 90);
+  --input: oklch(0.9 0.012 90);
+  --ring: oklch(0.34 0.07 150);
+  --stone-warm: oklch(0.78 0.025 80);
+  --moss: oklch(0.45 0.09 145);
+  --bloom: oklch(0.65 0.18 25);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
+}
+
+/* Scroll reveal */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .25s; }
+.reveal-delay-3 { transition-delay: .4s; }
+
+.reveal-mask > * { clip-path: inset(0 100% 0 0); transition: clip-path 1.2s cubic-bezier(.7,0,.2,1); }
+.reveal-mask.in > * { clip-path: inset(0 0 0 0); }
+
+.parallax-img { will-change: transform; transition: transform .1s linear; }
+
+.text-stroke {
+  -webkit-text-stroke: 1px oklch(0.985 0.008 90 / 0.7);
+  color: transparent;
+}
+
+/* Marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track { animation: marquee 40s linear infinite; }
+
+.grain::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: .12; pointer-events: none; mix-blend-mode: multiply;
+}
